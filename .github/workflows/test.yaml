@@ -2,7 +2,7 @@ name: Run JEL-DiD Replication
 
 on:
   push:
-    branches: [ main, master, CI-Workflow-fix ]
+    branches: [ main, master, SermetPekin/CI-workflow ]
   workflow_dispatch:  
 
 jobs:
@@ -39,18 +39,30 @@ jobs:
       - name: Install Linux System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfribidi-dev
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfribidi-dev  libglpk-dev
 
       # 6. Install the R packages
       - name: Install R Dependencies
         run: |
           install.packages("pak")
-          pak::pkg_install(c(
-            "renv", 
-            "here"
-          ))
+          pak::pkg_install(c("dplyr"))
         shell: Rscript {0}
 
       # 7. Run the script
       - name: Run the main script
-        run: Rscript scripts/R/debug.R #00_master_did_jel.R
+        run: Rscript scripts/R/00_master_did_jel.R
+        
+      - name: Debug Print current working directory
+        run: pwd
+
+      - name: Debug List all files recursively after script run
+        run: ls -R
+        
+      # 8. artifacts
+      - name: Upload Generated PDFs
+        uses: actions/upload-artifact@v4 # Using v4, the latest stable version
+        with:
+          name: jel-did-replication-pdfs # This is the name for your artifact
+          path: | 
+            figures/*.pdf   # For all PDFs inside the figures directory
+            tables/*.tex    # For all TeX files inside the tables directory
