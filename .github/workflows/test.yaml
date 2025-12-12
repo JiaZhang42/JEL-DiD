@@ -1,4 +1,4 @@
-name: Run JEL-DiD Replication
+name: CI Test for R code  
 
 on:
   push:
