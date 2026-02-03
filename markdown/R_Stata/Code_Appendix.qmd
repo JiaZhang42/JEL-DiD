@@ -41,7 +41,7 @@ knitr::opts_chunk$set(engine.opts = list(cleanup = TRUE))
 ::: panel-tabset
 ### R
 
-```{r, message = FALSE, warning = FALSE, error = FALSE, results = 'asis'}
+```{r error=FALSE, message=FALSE, warning=FALSE, results='asis'}
 ## Install packages from Github if needed
 # load packages
 library(tidyverse)
@@ -1801,7 +1801,6 @@ plot_data %>%
 
 
 ```
-
 :::
 
 # 2 $\times$ T DiD setups
@@ -1932,7 +1931,6 @@ mydata %>%
 
 
 ```
-
 :::
 
 ## Figure 3: 2 $\times$ T Event Study
@@ -2130,7 +2128,6 @@ mod %>%
 
 
 ```
-
 :::
 
 ## Rambachan & Roth (2023) Sensitivity Analysis
@@ -2385,7 +2382,6 @@ exit
 
 
 ```
-
 :::
 
 # G $\times$ T DiD setups
@@ -2516,7 +2512,6 @@ mydata %>%
 
 
 ```
-
 :::
 
 ## Figure 6: ATT(g, t)s for Each Expansion Group
@@ -2705,7 +2700,6 @@ mod_no_x %>%
 
 
 ```
-
 :::
 
 ## Figure 7: ATT(g, t) in Event Time
@@ -2807,7 +2801,6 @@ mod_no_x %>%
 
 
 ```
-
 :::
 
 ## Figure 8: G $\times$ T Event Study Without Covariates
@@ -2958,7 +2951,6 @@ mod_no_x %>%
 
 
 ```
-
 :::
 
 ## Figure 9: G $\times$ T Event Study With Covariates
@@ -3131,7 +3123,6 @@ mod_with_x %>%
 
 
 ```
-
 :::
 
 ```{stata, include = FALSE}
