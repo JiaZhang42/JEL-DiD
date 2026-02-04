@@ -397,8 +397,7 @@ by demographic group:
 </span><span class="s3">female_pop.csv</span><span class="s1">,
 </span><span class="s3">white_pop.csv</span><span class="s1">,
 </span><span class="s3">hispanic_pop.csv</span><span class="s1">,
-</span><span class="s3">total_pop.csv</span><span class="s1"> (total
-population aged 20–64). These were used to compute mortality rates and
+</span><span class="s3">total_pop.csv</span><span class="s1"> (all aged 20–64 except total_pop). These were used to compute mortality rates and
 demographic shares.</span>
 
 <span class="s4"></span><span class="s3">data/kff/</span><span class="s1">
