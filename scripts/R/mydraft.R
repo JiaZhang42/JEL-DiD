@@ -30,3 +30,49 @@ mydata <- read_csv(here::here("data", "county_mortality_data.csv")) %>%
     state %in% c("DE", "MA", "NY", "VT") ~ "Pre-2014", 
     TRUE ~ as.character(yaca)
   ))
+
+
+# get adoption year by state
+adopts <- mydata %>% 
+  distinct(state, adopt) %>% 
+  arrange(state)
+
+# first get the share of states, share of counties, and share of adults in 2013 by adoption category
+# first the states and share of states
+states <- adopts %>% 
+  group_by(adopt) %>% 
+  summarize(states = paste0(state, collapse = ", "),
+            state_share = n() / nrow(adopts))
+
+# next get the county share and the population share
+counties_pop <- mydata %>% 
+  # just for year 2013
+  filter(year == 2013) %>% 
+  # get county and population totals
+  mutate(total_counties = n(),
+         total_pop = sum(population_20_64, na.rm = TRUE)) %>% 
+  group_by(adopt) %>% 
+  # make into shares
+  summarize(county_share = n() / mean(total_counties),
+            pop_share = sum(population_20_64, na.rm = TRUE) / mean(total_pop))
+
+# make a table and export
+states %>% 
+  left_join(counties_pop, by = "adopt") %>% 
+  slice(9, 1:8) %>% 
+  # format the numbers to two digits
+  mutate(across(state_share:pop_share, ~ scales::number(., accuracy = 0.01))) %>%
+  # format the table
+  kable(
+    col.names = c("Expansion \n Year", "States", "Share of States", "Share of Counties", 
+                  "Share of Adults (2013)"),
+    booktabs = T, caption = "Medicaid Expansion Under the Affordable Care Act",
+    label = "adoptions",
+    align = c("c"),
+    escape = FALSE,
+    linesep = ""
+  ) %>% 
+  kable_styling(latex_options = c("scale_down", "HOLD_position")) %>%
+  column_spec(2, width = "20em")
+
+
